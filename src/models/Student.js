@@ -1,5 +1,3 @@
-//TODO: CRIAR MODEL DE STUDENT
-
 export default class Student {
     constructor(){
         this.id = null;
