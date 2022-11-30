@@ -18,6 +18,7 @@ import Toolbar from 'primevue/toolbar';
 import Button from "primevue/button";
 import InputText from 'primevue/inputtext';
 import InputMask from 'primevue/inputmask';
+import Dialog from 'primevue/dialog';
 
 const app = createApp(App);
 
@@ -33,5 +34,6 @@ app.component("Toolbar", Toolbar);
 app.component("Button", Button);
 app.component("InputText", InputText);
 app.component("InputMask", InputMask);
+app.component("Dialog", Dialog);
 
 app.mount("#app");
