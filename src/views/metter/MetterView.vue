@@ -70,74 +70,29 @@
           :exportable="false"
         ></Column>
         <Column
-          field="code"
-          header="Code"
-          :sortable="true"
-          style="min-width: 12rem"
-        ></Column>
-        <Column
           field="name"
           header="Name"
           :sortable="true"
           style="min-width: 16rem"
         ></Column>
-        <Column header="Image">
-          <template #body="slotProps">
-            <img
-              src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png"
-              :alt="slotProps.data.image"
-              class="product-image"
-            />
-          </template>
-        </Column>
         <Column
-          field="price"
-          header="Price"
+          field="credential"
+          header="Credencial"
           :sortable="true"
-          style="min-width: 8rem"
-        >
-          <template #body="slotProps">
-            {{ formatCurrency(slotProps.data.price) }}
-          </template>
-        </Column>
+          style="min-width: 12rem"
+        ></Column>
         <Column
-          field="category"
-          header="Category"
+          field="student.id"
+          header="Estudante"
           :sortable="true"
           style="min-width: 10rem"
         ></Column>
         <Column
-          field="rating"
-          header="Reviews"
+          field="teacher.id"
+          header="Professor"
           :sortable="true"
-          style="min-width: 12rem"
-        >
-          <template #body="slotProps">
-            <Rating
-              :modelValue="slotProps.data.rating"
-              :readonly="true"
-              :cancel="false"
-            />
-          </template>
-        </Column>
-        <Column
-          field="inventoryStatus"
-          header="Status"
-          :sortable="true"
-          style="min-width: 12rem"
-        >
-          <template #body="slotProps">
-            <span
-              :class="
-                'product-badge status-' +
-                (slotProps.data.inventoryStatus
-                  ? slotProps.data.inventoryStatus.toLowerCase()
-                  : '')
-              "
-              >{{ slotProps.data.inventoryStatus }}</span
-            >
-          </template>
-        </Column>
+          style="min-width: 10rem"
+        ></Column>
         <Column :exportable="false" style="min-width: 8rem">
           <template #body="slotProps">
             <Button
@@ -383,7 +338,8 @@ export default {
     //TODO: Criar a datatable
     
     this.metterService.findAll().then((data) => {
-        this.products = data
+        this.products = data; 
+        console.log (this.products);
     });
   },
   methods: {
