@@ -18,6 +18,7 @@ import Toolbar from 'primevue/toolbar';
 import Button from "primevue/button";
 import InputText from 'primevue/inputtext';
 import InputMask from 'primevue/inputmask';
+import InputNumber from 'primevue/inputnumber';
 import Dialog from 'primevue/dialog';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
@@ -37,6 +38,7 @@ app.component("Toolbar", Toolbar);
 app.component("Button", Button);
 app.component("InputText", InputText);
 app.component("InputMask", InputMask);
+app.component("InputNumber", InputNumber);
 app.component("Dialog", Dialog);
 app.component("ConfirmDialog", ConfirmDialog);
 

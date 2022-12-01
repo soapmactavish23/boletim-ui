@@ -5,8 +5,11 @@ export default createStore({
     views: {
       teacher: {
         dialogForm: false,
-      }
-    }
+      },
+      student: {
+        dialogForm: false,
+      },
+    },
   },
   getters: {
   },

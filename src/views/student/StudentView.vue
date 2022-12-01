@@ -11,35 +11,38 @@
           />
         </template>
 
-        <template #end> </template>
+        <template #end>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search" />
+            <InputText
+              v-model="filters['global'].value"
+              placeholder="Pesquisar..."
+            />
+          </span>
+        </template> 
       </Toolbar>
       <!-- TODO: CRIAR A DATATABLE DE ESTUDANTES -->
       <DataTable
         ref="dt"
         :value="students"
-        v-model:selection="selectedProducts"
         dataKey="id"
         :paginator="true"
         :rows="10"
         :filters="filters"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[5, 10, 25]"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+        currentPageReportTemplate="Registro {first} de {last} de {totalRecords} Estudantes"
         responsiveLayout="scroll"
       >
         <template #header>
           <div
             class="table-header flex flex-column md:flex-row md:justiify-content-between"
           >
-            <h5 class="mb-2 md:m-0 p-as-md-center">Manage Products</h5>
+            <h5 class="mb-2 md:m-0 p-as-md-center">Estudantes</h5>
           </div>
         </template>
 
-        <Column
-          selectionMode="multiple"
-          style="width: 3rem"
-          :exportable="false"
-        ></Column>
+        
         <Column
           field="name"
           header="Nome"
@@ -76,17 +79,24 @@
             <Button
               icon="pi pi-pencil"
               class="p-button-rounded p-button-success mr-2"
-              @click="editProduct(slotProps.data)"
+              @click="openEdit(slotProps.data)"
             />
             <Button
               icon="pi pi-trash"
               class="p-button-rounded p-button-warning"
-              @click="confirmDeleteProduct(slotProps.data)"
+              @click="openDelete(slotProps.data)"
             />
           </template>
         </Column>
       </DataTable>
     </Panel>
+    <dialogForm 
+    :title="titleForm"
+    :studentSelected="student"
+    @created = "created"
+    @update = "update"
+    />
+    <ConfirmDialog></ConfirmDialog>
   </div>
 </template>
 
@@ -121,12 +131,6 @@ import Student  from "@/models/Student";
     this.initFilters();
   },
     mounted() {
-    //TODO: Criar a datatable
-
-    // this.studentService.findAll().then((data) => {
-    //     this.products = data;
-    //     console.log (this.products);
-    // });
     this.findAll();
       console.log (this.student)
   },
@@ -148,7 +152,7 @@ import Student  from "@/models/Student";
     },
     openNew() {
       this.student = new Student();
-      this.titleForm = 'Novo Professor';
+      this.titleForm = 'Novo Estudante';
       this.dialogForm = true;
     },
     openEdit(data) {
@@ -157,8 +161,29 @@ import Student  from "@/models/Student";
       this.titleForm = this.student.name;
       // TODO: OPEN EDIT
     },
-    openDelete() {
-      // TODO: OPEN DELETE
+    openDelete(data) {
+      this.$confirm.require({
+        message: "Tem certeza que deseja excluir o registro?",
+        header: "Confirme",
+        icon: "pi pi-exclamation-triangle",
+        acceptLabel: "Sim",
+        rejectLabel: "Não",
+        accept: () => {
+          this.delete(data)
+        },
+      });
+    },
+    create(data) {
+      this.students.push(data);
+    },
+    update(data) {
+      this.delete(data);
+      this.students.push(data);
+    },
+    delete(data) {
+      //DELETAR O ITEM ANTERIOR
+      let list = this.students.filter((t) => data.id != t.id);
+      this.students = list;
     },
     initFilters() {
       this.filters = {

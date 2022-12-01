@@ -14,7 +14,7 @@
         <InputText
           id="name"
           type="text"
-          v-model="value"
+          v-model="student.name"
           placeholder="Digite o nome do Estudante"
         />
         </div>
@@ -23,7 +23,7 @@
         <InputNumber
           id="name"
           type="text"
-          v-model="value" mode="decimal"
+          v-model="student.credential" mode="decimal"
           placeholder="Digite sua credencial"
         />
       </div>
@@ -32,8 +32,17 @@
         <InputMask
           id="name"
           type="text"
-          v-model="value" mask="(99)-999999999"
+          v-model="student.contact" mask="(99)-999999999"
           placeholder="(99)-99999-9999"
+        />
+      </div>
+      <div class="field">
+        <label for="name">CPF</label>
+        <InputMask
+          id="name"
+          type="text"
+          v-model="student.cpf" mask="999.999.999-99"
+          placeholder="999.999.999-99"
         />
       </div>
   
@@ -44,7 +53,7 @@
           class="p-button-text"
           @click="hideDialog"
         />
-        <Button label="Salvar" icon="pi pi-check" autofocus />
+        <Button label="Salvar" icon="pi pi-check" autofocus @click ="save"/>
       </template>
     </Dialog>
   </template>
@@ -78,6 +87,20 @@
     methods: {
       getData() {
         this.student = this.studentSelected;
+      },
+      save() {
+      if (this.student.id === null) {
+        this.create();
+      } else {
+        this.update();
+      }
+      this.hideDialog();
+    },
+      created() {
+        this.$emit("create", this.student);
+      },
+      update() {
+        this.$emit("update", this.student);
       },
       hideDialog() {
         this.student = new Student();
