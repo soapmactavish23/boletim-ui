@@ -1,7 +1,7 @@
 <template>
-    <div>
-      <Panel header="Gerenciamento de Estudantes">
-        <Toolbar class="mb-4">
+  <div>
+    <Panel header="Gerenciamento de Estudantes">
+      <Toolbar class="mb-4">
         <template #start>
           <Button
             label="Novo"
@@ -11,14 +11,12 @@
           />
         </template>
 
-        <template #end>
-          
-        </template>
+        <template #end> </template>
       </Toolbar>
-        <!-- TODO: CRIAR A DATATABLE DE ESTUDANTES -->
-        <DataTable
+      <!-- TODO: CRIAR A DATATABLE DE ESTUDANTES -->
+      <DataTable
         ref="dt"
-        :value="products"
+        :value="students"
         v-model:selection="selectedProducts"
         dataKey="id"
         :paginator="true"
@@ -34,7 +32,6 @@
             class="table-header flex flex-column md:flex-row md:justiify-content-between"
           >
             <h5 class="mb-2 md:m-0 p-as-md-center">Manage Products</h5>
-            
           </div>
         </template>
 
@@ -73,7 +70,7 @@
           :sortable="true"
           style="min-width: 12rem"
         ></Column>
-        
+
         <Column :exportable="false" style="min-width: 8rem">
           <template #body="slotProps">
             <Button
@@ -89,158 +86,79 @@
           </template>
         </Column>
       </DataTable>
-      </Panel>
-    </div>
-  </template>
-  
-  <script>
+    </Panel>
+  </div>
+</template>
+
+<script>
   //FILTROS
   import { FilterMatchMode } from "primevue/api";
+
+  //SERVICES
   import StudentService from "../../service/student/student_service";
+
+  //COMPONENTES
+  import DialogForm from "./components/DialogForms.vue";
+
+  //MODELS
+import Student  from "@/models/Student";
+
   export default {
+    components: {DialogForm},
     data() {
       return {
-        // filters: {
-        //   global: { value: null, matchMode: FilterMatchMode.CONTAINS }
-        // },
-        products: null,
-      productDialog: false,
-      deleteProductDialog: false,
-      deleteProductsDialog: false,
-      product: {},
-      selectedProducts: null,
-      filters: {},
-      submitted: false,
-      statuses: [
-        { label: "INSTOCK", value: "instock" },
-        { label: "LOWSTOCK", value: "lowstock" },
-        { label: "OUTOFSTOCK", value: "outofstock" },
-      ],
-      studentService: new StudentService(),
-      };
+        students: null,
+        student: new Student(),
+        filters: {},
+        submitted: false,
+        studentService: new StudentService(),
+        visible: false,
+        titleForm: null,
+    };
     },
-    
+
     created() {
     this.initFilters();
   },
     mounted() {
     //TODO: Criar a datatable
-    
-    this.studentService.findAll().then((data) => {
-        this.products = data; 
-        console.log (this.products);
-    });
+
+    // this.studentService.findAll().then((data) => {
+    //     this.products = data;
+    //     console.log (this.products);
+    // });
+    this.findAll();
+      console.log (this.student)
+  },
+  computed: {
+    dialogForm: {
+      get() {
+        return this.$store.state.views.student.dialogForm;  
+      },
+      set(value) {
+        this.$store.state.views.student.dialogForm = value;
+      }
+    }
   },
   methods: {
-    formatCurrency(value) {
-      if (value)
-        return value.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        });
-      return;
+    findAll() {
+      this.studentService.findAll().then((data) => {
+        this.students = data;
+      });
     },
     openNew() {
-      this.product = {};
-      this.submitted = false;
-      this.productDialog = true;
+      this.student = new Student();
+      this.titleForm = 'Novo Professor';
+      this.dialogForm = true;
     },
-    hideDialog() {
-      this.productDialog = false;
-      this.submitted = false;
+    openEdit(data) {
+      this.student = data;
+      this.dialogForm = true;
+      this.titleForm = this.student.name;
+      // TODO: OPEN EDIT
     },
-    saveProduct() {
-      this.submitted = true;
-
-      if (this.product.name.trim()) {
-        if (this.product.id) {
-          this.product.inventoryStatus = this.product.inventoryStatus.value
-            ? this.product.inventoryStatus.value
-            : this.product.inventoryStatus;
-          this.products[this.findIndexById(this.product.id)] = this.product;
-          this.$toast.add({
-            severity: "success",
-            summary: "Successful",
-            detail: "Product Updated",
-            life: 3000,
-          });
-        } else {
-          this.product.id = this.createId();
-          this.product.code = this.createId();
-          this.product.image = "product-placeholder.svg";
-          this.product.inventoryStatus = this.product.inventoryStatus
-            ? this.product.inventoryStatus.value
-            : "INSTOCK";
-          this.products.push(this.product);
-          this.$toast.add({
-            severity: "success",
-            summary: "Successful",
-            detail: "Product Created",
-            life: 3000,
-          });
-        }
-
-        this.productDialog = false;
-        this.product = {};
-      }
-    },
-    editProduct(product) {
-      this.product = { ...product };
-      this.productDialog = true;
-    },
-    confirmDeleteProduct(product) {
-      this.product = product;
-      this.deleteProductDialog = true;
-    },
-    deleteProduct() {
-      this.products = this.products.filter((val) => val.id !== this.product.id);
-      this.deleteProductDialog = false;
-      this.product = {};
-      this.$toast.add({
-        severity: "success",
-        summary: "Successful",
-        detail: "Product Deleted",
-        life: 3000,
-      });
-    },
-    findIndexById(id) {
-      let index = -1;
-      for (let i = 0; i < this.products.length; i++) {
-        if (this.products[i].id === id) {
-          index = i;
-          break;
-        }
-      }
-
-      return index;
-    },
-    createId() {
-      let id = "";
-      var chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      for (var i = 0; i < 5; i++) {
-        id += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return id;
-    },
-    exportCSV() {
-      this.$refs.dt.exportCSV();
-    },
-    confirmDeleteSelected() {
-      this.deleteProductsDialog = true;
-    },
-    deleteSelectedProducts() {
-      this.products = this.products.filter(
-        (val) => !this.selectedProducts.includes(val)
-      );
-      this.deleteProductsDialog = false;
-      this.selectedProducts = null;
-      this.$toast.add({
-        severity: "success",
-        summary: "Successful",
-        detail: "Products Deleted",
-        life: 3000,
-      });
+    openDelete() {
+      // TODO: OPEN DELETE
     },
     initFilters() {
       this.filters = {
@@ -288,4 +206,3 @@
   }
 }
 </style>
-

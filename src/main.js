@@ -19,12 +19,15 @@ import Button from "primevue/button";
 import InputText from 'primevue/inputtext';
 import InputMask from 'primevue/inputmask';
 import Dialog from 'primevue/dialog';
+import ConfirmDialog from 'primevue/confirmdialog';
+import ConfirmationService from 'primevue/confirmationservice';
 
 const app = createApp(App);
 
 app.use(PrimeVue);
 app.use(store);
 app.use(router);
+app.use(ConfirmationService);
 
 app.component("DataTable", DataTable);
 app.component("Column", Column);
@@ -35,5 +38,6 @@ app.component("Button", Button);
 app.component("InputText", InputText);
 app.component("InputMask", InputMask);
 app.component("Dialog", Dialog);
+app.component("ConfirmDialog", ConfirmDialog);
 
 app.mount("#app");

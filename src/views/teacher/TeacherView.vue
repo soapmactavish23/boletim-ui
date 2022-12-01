@@ -62,7 +62,13 @@
         </Column>
       </DataTable>
     </Panel>
-    <DialogForm :visible="visible" :title="titleForm"/>
+    <dialog-form
+      :title="titleForm"
+      :teacherSelected="teacher"
+      @create="create"
+      @update="update"
+    />
+    <ConfirmDialog></ConfirmDialog>
   </div>
 </template>
 
@@ -74,14 +80,17 @@ import { FilterMatchMode } from "primevue/api";
 import TeacherService from "../../service/teacher/teacher_service";
 
 //Components
-import DialogForm from "./components/DialogForm.vue"
+import DialogForm from "./components/DialogForm.vue";
+
+//MODELS
+import Teacher from "@/models/Teacher";
 
 export default {
-  components: {DialogForm},
+  components: { DialogForm },
   data() {
     return {
       teachers: null,
-      product: {},
+      teacher: new Teacher(),
       filters: {},
       submitted: false,
       teacherService: new TeacherService(),
@@ -95,6 +104,16 @@ export default {
   mounted() {
     this.findAll();
   },
+  computed: {
+    dialogForm: {
+      get() {
+        return this.$store.state.views.teacher.dialogForm;
+      },
+      set(value) {
+        this.$store.state.views.teacher.dialogForm = value;
+      },
+    },
+  },
   methods: {
     findAll() {
       this.teacherService.findAll().then((data) => {
@@ -102,17 +121,38 @@ export default {
       });
     },
     openNew() {
-      this.titleForm = 'Novo Professor';
-      this.visible = true;
+      this.teacher = new Teacher();
+      this.titleForm = "Novo Professor";
+      this.dialogForm = true;
     },
-    hideDialog() {
-      this.visible = false;
+    openEdit(data) {
+      this.teacher = data;
+      this.dialogForm = true;
+      this.titleForm = this.teacher.name;
     },
-    openEdit() {
-      // TODO: OPEN EDIT
+    openDelete(data) {
+      this.$confirm.require({
+        message: "Tem certeza que deseja excluir o registro?",
+        header: "Confirme",
+        icon: "pi pi-exclamation-triangle",
+        acceptLabel: "Sim",
+        rejectLabel: "Não",
+        accept: () => {
+          this.delete(data)
+        },
+      });
     },
-    openDelete() {
-      // TODO: OPEN DELETE
+    create(data) {
+      this.teachers.push(data);
+    },
+    update(data) {
+      this.delete(data);
+      this.teachers.push(data);
+    },
+    delete(data) {
+      //DELETAR O ITEM ANTERIOR
+      let list = this.teachers.filter((t) => data.id != t.id);
+      this.teachers = list;
     },
     initFilters() {
       this.filters = {
