@@ -4,6 +4,7 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
+
 import PrimeVue from "primevue/config";
 import "/node_modules/primeflex/primeflex.css";
 import "primevue/resources/themes/saga-blue/theme.css"; //theme
@@ -22,6 +23,8 @@ import InputNumber from 'primevue/inputnumber';
 import Dialog from 'primevue/dialog';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
+import Message from 'primevue/message';
+import ToastService from 'primevue/toastservice';
 
 const app = createApp(App);
 
@@ -29,6 +32,7 @@ app.use(PrimeVue);
 app.use(store);
 app.use(router);
 app.use(ConfirmationService);
+app.use(ToastService);
 
 app.component("DataTable", DataTable);
 app.component("Column", Column);
@@ -41,5 +45,7 @@ app.component("InputMask", InputMask);
 app.component("InputNumber", InputNumber);
 app.component("Dialog", Dialog);
 app.component("ConfirmDialog", ConfirmDialog);
+app.component("Message", Message);
+app.component("ToastService", ToastService);
 
 app.mount("#app");

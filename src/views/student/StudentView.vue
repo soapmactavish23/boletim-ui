@@ -93,7 +93,7 @@
     <dialogForm 
     :title="titleForm"
     :studentSelected="student"
-    @created = "created"
+    @create = "create"
     @update = "update"
     />
     <ConfirmDialog></ConfirmDialog>
