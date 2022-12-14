@@ -4,12 +4,6 @@
       <Toolbar class="mb-4">
         <template #start>
           <Button
-            label="New"
-            icon="pi pi-plus"
-            class="p-button-success mr-2"
-            @click="openNew"
-          />
-          <Button
             label="Delete"
             icon="pi pi-trash"
             class="p-button-danger"
@@ -26,12 +20,6 @@
             label="Import"
             chooseLabel="Import"
             class="mr-2 inline-block"
-          />
-          <Button
-            label="Export"
-            icon="pi pi-upload"
-            class="p-button-help"
-            @click="exportCSV($event)"
           />
         </template>
       </Toolbar>
@@ -53,7 +41,7 @@
           <div
             class="table-header flex flex-column md:flex-row md:justiify-content-between"
           >
-            <h5 class="mb-2 md:m-0 p-as-md-center">Manage Products</h5>
+            <h5 class="mb-2 md:m-0 p-as-md-center">Gerenciar Todos</h5>
             <span class="p-input-icon-left">
               <i class="pi pi-search" />
               <InputText
@@ -71,7 +59,7 @@
         ></Column>
         <Column
           field="name"
-          header="Name"
+          header="Nome"
           :sortable="true"
           style="min-width: 16rem"
         ></Column>

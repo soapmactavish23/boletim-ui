@@ -45,6 +45,7 @@
 <script>
 //MODELS
 import Teacher from "@/models/Teacher";
+import Toast from 'primevue/toast';
 
 export default {
   props: ["teacherSelected", "title"],
@@ -80,9 +81,21 @@ export default {
       this.hideDialog();
     },
     create() {
+      this.$toast.add({
+              severity: "success",
+              summary: "Alerta!",
+              detail: "Registro alterado com sucesso.",
+              life: 3000,
+            });
       this.$emit("create", this.teacher);
     },
     update() {
+      this.$toast.add({
+              severity: "success",
+              summary: "Alerta!",
+              detail: "Registro alterado com sucesso.",
+              life: 3000,
+            });
       this.$emit("update", this.teacher);
     },
     hideDialog() {

@@ -25,6 +25,7 @@ import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
 import Message from 'primevue/message';
 import ToastService from 'primevue/toastservice';
+import Toast from 'primevue/toast';
 
 const app = createApp(App);
 
@@ -33,6 +34,7 @@ app.use(store);
 app.use(router);
 app.use(ConfirmationService);
 app.use(ToastService);
+app.use(Toast);
 
 app.component("DataTable", DataTable);
 app.component("Column", Column);
@@ -47,5 +49,6 @@ app.component("Dialog", Dialog);
 app.component("ConfirmDialog", ConfirmDialog);
 app.component("Message", Message);
 app.component("ToastService", ToastService);
+app.component("Toast", Toast);
 
 app.mount("#app");

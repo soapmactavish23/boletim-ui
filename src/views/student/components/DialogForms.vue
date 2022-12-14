@@ -1,4 +1,5 @@
 <template>
+  
   <Dialog
     :header="title"
     :visible="visible"
@@ -58,6 +59,7 @@
       />
       <Button label="Salvar" icon="pi pi-check" autofocus @click="save" />
     </template>
+    
   </Dialog>
 </template>
 
@@ -100,9 +102,21 @@ export default {
       this.hideDialog();
     },
     create() {
+      this.$toast.add({
+              severity: "success",
+              summary: "Alerta!",
+              detail: "Registro criado com sucesso.",
+              life: 3000,
+            });
       this.$emit("create", this.student);
     },
     update() {
+      this.$toast.add({
+              severity: "success",
+              summary: "Alerta!",
+              detail: "Registro alterado com sucesso.",
+              life: 3000,
+            });
       this.$emit("update", this.student);
     },
     hideDialog() {

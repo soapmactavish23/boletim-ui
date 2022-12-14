@@ -1,4 +1,5 @@
 <template>
+  <Toast />
   <h1 class="text-center">Boletim Escolar</h1>
   <hr />
   <nav>

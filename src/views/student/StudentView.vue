@@ -172,6 +172,12 @@ import Student  from "@/models/Student";
           this.delete(data)
         },
       });
+      this.$toast.add({
+              severity: "success",
+              summary: "Alerta!",
+              detail: "Registro excluido com sucesso.",
+              life: 3000,
+            });
     },
     create(data) {
       this.students.push(data);

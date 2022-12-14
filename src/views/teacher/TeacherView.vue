@@ -43,7 +43,7 @@
           </div>
         </template>
 
-        <Column field="name" header="Name" :sortable="true"></Column>
+        <Column field="name" header="Nome" :sortable="true"></Column>
         <Column field="contact" header="Contato" :sortable="true"></Column>
 
         <Column :exportable="false" style="min-width: 8rem">
