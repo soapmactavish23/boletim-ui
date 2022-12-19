@@ -138,9 +138,17 @@ export default {
         acceptLabel: "Sim",
         rejectLabel: "Não",
         accept: () => {
+          this.$toast.add({
+              severity: "success",
+              summary: "Alerta!",
+              detail: "Registro excluido com sucesso.",
+              life: 3000,
+            });
           this.delete(data)
         },
       });
+      
+      
     },
     create(data) {
       this.teachers.push(data);
@@ -151,7 +159,7 @@ export default {
     },
     delete(data) {
       //DELETAR O ITEM ANTERIOR
-      let list = this.teachers.filter((t) => data.id != t.id);
+      let list = this.teachers.filter((t) => data.id != t.id); 
       this.teachers = list;
     },
     initFilters() {

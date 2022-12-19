@@ -269,13 +269,13 @@
     <Dialog
       v-model:visible="deleteProductsDialog"
       :style="{ width: '450px' }"
-      header="Confirm"
+      header="Confirme"
       :modal="true"
     >
       <div class="confirmation-content">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
         <span v-if="product"
-          >Are you sure you want to delete the selected products?</span
+          >Tem certeza que deseja excluir o registro ?</span
         >
       </div>
       <template #footer>
@@ -437,7 +437,7 @@ export default {
       this.$toast.add({
         severity: "success",
         summary: "Successful",
-        detail: "Products Deleted",
+        detail: "Registro excluido com sucesso",
         life: 3000,
       });
     },

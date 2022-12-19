@@ -114,7 +114,7 @@ export default {
       this.$toast.add({
               severity: "success",
               summary: "Alerta!",
-              detail: "Registro alterado com sucesso.",
+              detail: "Registro editado com sucesso.",
               life: 3000,
             });
       this.$emit("update", this.student);

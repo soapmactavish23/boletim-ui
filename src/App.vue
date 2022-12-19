@@ -3,14 +3,30 @@
   <h1 class="text-center">Boletim Escolar</h1>
   <hr />
   <nav>
-    <router-link to="/">Gerenciamento de Notas</router-link> |
-    <router-link to="/student">Gerenciamento de Estudantes</router-link> |
-    <router-link to="/teacher">Gerenciamento de Professores</router-link>
+  <TabMenu :model="items" />
   </nav>
   <hr />
   <router-view />
 </template>
-
+<Carousel :value="cars" :numVisible="3" :numScroll="1">
+	<template #item="slotProps">
+	</template>
+</Carousel>
+<script>
+export default {
+	data() {
+		return {
+			items: [
+                {label: 'Menu', icon: 'pi pi-fw pi-home', to: '/login'},
+                {label: 'Notas', icon: 'pi pi-fw pi-calendar', to: '/metter'},
+                {label: 'Estudantes', icon: 'pi pi-fw pi-user-edit', to: '/student'},
+                {label: 'Professores', icon: 'pi pi-fw pi-file', to: '/teacher'},
+                {label: 'Sair', icon: 'pi pi-fw pi-cog'}
+            ]
+		}
+	}
+}
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

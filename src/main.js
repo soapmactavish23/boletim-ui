@@ -10,6 +10,8 @@ import "/node_modules/primeflex/primeflex.css";
 import "primevue/resources/themes/saga-blue/theme.css"; //theme
 import "primevue/resources/primevue.min.css"; //core css
 import "primeicons/primeicons.css";
+import Menubar from 'primevue/menubar';
+import TabMenu from 'primevue/tabmenu';
 
 import DataTable from "primevue/datatable";
 import Column from 'primevue/column';
@@ -26,6 +28,8 @@ import ConfirmationService from 'primevue/confirmationservice';
 import Message from 'primevue/message';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
+import Carousel from 'primevue/carousel';
+
 
 const app = createApp(App);
 
@@ -50,5 +54,8 @@ app.component("ConfirmDialog", ConfirmDialog);
 app.component("Message", Message);
 app.component("ToastService", ToastService);
 app.component("Toast", Toast);
+app.component("Menubar", Menubar);
+app.component("Carousel", Carousel);
+app.component("TabMenu", TabMenu);
 
 app.mount("#app");

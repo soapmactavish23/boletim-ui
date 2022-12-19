@@ -169,15 +169,16 @@ import Student  from "@/models/Student";
         acceptLabel: "Sim",
         rejectLabel: "Não",
         accept: () => {
-          this.delete(data)
-        },
-      });
-      this.$toast.add({
+          this.$toast.add({
               severity: "success",
               summary: "Alerta!",
               detail: "Registro excluido com sucesso.",
               life: 3000,
             });
+          this.delete(data)
+        },
+      });
+      
     },
     create(data) {
       this.students.push(data);
@@ -191,6 +192,7 @@ import Student  from "@/models/Student";
       let list = this.students.filter((t) => data.id != t.id);
       this.students = list;
     },
+    
     initFilters() {
       this.filters = {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
