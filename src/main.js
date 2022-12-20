@@ -31,6 +31,7 @@ import Toast from 'primevue/toast';
 import Carousel from 'primevue/carousel';
 
 
+
 const app = createApp(App);
 
 app.use(PrimeVue);
@@ -39,6 +40,7 @@ app.use(router);
 app.use(ConfirmationService);
 app.use(ToastService);
 app.use(Toast);
+app.use(Carousel);
 
 app.component("DataTable", DataTable);
 app.component("Column", Column);

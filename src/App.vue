@@ -8,9 +8,13 @@
   <hr />
   <router-view />
 </template>
-<Carousel :value="cars" :numVisible="3" :numScroll="1">
-	<template #item="slotProps">
-	</template>
+<Carousel :value="cars" :numVisible="3" :numScroll="1" :circular="true" :autoplayInterval="3000">
+  <template #header>
+      <h2>Circular, AutoPlay</h2>
+  </template>
+  <template #item="slotProps">
+      Content
+  </template>
 </Carousel>
 <script>
 export default {

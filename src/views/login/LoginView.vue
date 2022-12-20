@@ -1,16 +1,15 @@
 <template>
-	
     <div>
         <div class="card">
             <Carousel :value="products" :numVisible="3" :numScroll="1" :responsiveOptions="responsiveOptions" class="custom-carousel" :circular="true" :autoplayInterval="3000">
                 <template #header>
-                    <h5>Testando Banner Rotativo</h5>
+                    <h5>AutoPlay</h5>
                 </template>
                 <template #item="slotProps">
                     <div class="product-item">
                         <div class="product-item-content">
                             <div class="mb-3">
-                                <img src="https://assets.infra.grancursosonline.com.br/projeto/sespa-secretaria-de-estado-de-saude-publica-do-estado-do-para.jpg" :alt="slotProps.data.name" class="product-image" />
+                                <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.name" class="product-image" />
                             </div>
                             <div>
                                 <h4 class="mb-1">{{slotProps.data.name}}</h4>
@@ -29,45 +28,38 @@
         </div>
 	</div>
 </template>
-<Carousel :value="cars" :numVisible="3" :numScroll="1" :circular="true" :autoplayInterval="3000">
-	
-	
-</Carousel>
-	
-
 
 <script>
+import { ref, onMounted } from 'vue';
 import ProductService from '../../service/product/ProductService';
 
+
 export default {
-	data() {
-		return {
-            products: null,
-			responsiveOptions: [
-				{
-					breakpoint: '1024px',
-					numVisible: 3,
-					numScroll: 3
-				},
-				{
-					breakpoint: '600px',
-					numVisible: 2,
-					numScroll: 2
-				},
-				{
-					breakpoint: '480px',
-					numVisible: 1,
-					numScroll: 1
-				}
-			]
-		}
-	},
-    productService: null,
-	created() {
-        this.productService = new ProductService();
-	},
-	mounted() {
-        this.productService.getProductsSmall().then(data => this.products = data.slice(0,9));
+	setup() {
+        onMounted(() => {
+            productService.value.getProductsSmall().then(data => products.value = data.slice(0,9));
+        })
+        const products = ref(null);
+        const productService = ref(new ProductService());
+		const responsiveOptions = ref([
+			{
+				breakpoint: '1024px',
+				numVisible: 3,
+				numScroll: 3
+			},
+			{
+				breakpoint: '600px',
+				numVisible: 2,
+				numScroll: 2
+			},
+			{
+				breakpoint: '480px',
+				numVisible: 1,
+				numScroll: 1
+			}
+		]);
+
+        return {products, productService, responsiveOptions }
 	}
 }
 </script>
