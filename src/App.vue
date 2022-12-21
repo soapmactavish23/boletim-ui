@@ -8,14 +8,6 @@
   <hr />
   <router-view />
 </template>
-<Carousel :value="cars" :numVisible="3" :numScroll="1" :circular="true" :autoplayInterval="3000">
-  <template #header>
-      <h2>Circular, AutoPlay</h2>
-  </template>
-  <template #item="slotProps">
-      Content
-  </template>
-</Carousel>
 <script>
 export default {
 	data() {
@@ -52,4 +44,12 @@ nav {
     }
   }
 }
+.text-center {
+  // height: 20%;
+ width: 18%;
+ border-radius: 5%;
+ border: #2c3e50;
+  
+  background-color: #42b983;
+  }
 </style>
