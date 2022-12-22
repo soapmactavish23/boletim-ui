@@ -47,9 +47,8 @@ nav {
 .text-center {
   // height: 20%;
  width: 18%;
- border-radius: 5%;
- border: #2c3e50;
-  
-  background-color: #42b983;
+ border: solid 2px;
+ border-radius: 6%;
+ background-color: #42b983;
   }
 </style>

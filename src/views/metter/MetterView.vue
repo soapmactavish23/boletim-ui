@@ -241,19 +241,19 @@
       <div class="confirmation-content">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
         <span v-if="product"
-          >Are you sure you want to delete <b>{{ product.name }}</b
+          >Tem certeza que deseja excluir o registro de <b>{{ product.name }}</b
           >?</span
         >
       </div>
       <template #footer>
         <Button
-          label="No"
+          label="Não"
           icon="pi pi-times"
           class="p-button-text"
           @click="deleteProductDialog = false"
         />
         <Button
-          label="Yes"
+          label="Sim"
           icon="pi pi-check"
           class="p-button-text"
           @click="deleteProduct"
@@ -393,7 +393,7 @@ export default {
       this.$toast.add({
         severity: "success",
         summary: "Successful",
-        detail: "Product Deleted",
+        detail: "Registro excluido com sucesso !",
         life: 3000,
       });
     },

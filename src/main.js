@@ -29,6 +29,7 @@ import Message from 'primevue/message';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
 import Carousel from 'primevue/carousel';
+import Fieldset from 'primevue/fieldset';
 
 
 
@@ -59,5 +60,6 @@ app.component("Toast", Toast);
 app.component("Menubar", Menubar);
 app.component("Carousel", Carousel);
 app.component("TabMenu", TabMenu);
+app.component("Fieldset", Fieldset);
 
 app.mount("#app");
